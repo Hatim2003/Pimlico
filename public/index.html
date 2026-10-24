@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#210b10"><title>Pimlico | A Love Letter of an Evening</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="header">
+  <a class="brand" href="#home"><span class="logo-heart">♡</span><span class="brand-name">PIMLICO<small>KOREGAON PARK</small></span></a>
+  <button class="menu" id="menu" aria-label="Open navigation">☰</button>
+  <nav id="nav"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#reservations">Reservations</a><a href="#support">Support</a><a href="#reviews">Reviews</a></nav>
+  <a class="outline-button top-book" href="#reservations">Book a Table ♧</a>
+</header>
+<main>
+<section class="hero" id="home"><div class="hero-image"></div><div class="hero-overlay"></div><div class="hero-content"><p class="eyebrow">PIMLICO, KOREGAON PARK</p><h1>Some nights feel like a<br><em>love letter.</em></h1><p>Exquisite food. Intimate ambience. Unforgettable moments.</p><a class="button pink" href="#reservations">Make a Reservation <span>→</span></a></div><div class="scroll-mark">SCROLL <span>│</span> ↓</div></section>
+<section class="experience" id="experience"><div class="experience-intro"><p class="eyebrow">THE PIMLICO EXPERIENCE</p><h2>Perfect for Every<br>Kind of Love</h2><p>Whether it’s a romantic date, a special celebration, or an intimate gathering, Pimlico sets the perfect mood.</p><a class="button outline-dark" href="#about">Explore Our Spaces <span>→</span></a></div>
+<div class="experience-card date"><div><h3>Date Nights</h3><p>Romance over every bite</p></div><a href="#reservations" aria-label="Book a date night">→</a></div>
+<div class="experience-card gathering"><div><h3>Private Gatherings</h3><p>Celebrate with your people</p></div><a href="#reservations" aria-label="Book a private gathering">→</a></div>
+<div class="experience-card celebration"><div><h3>Special Celebrations</h3><p>Make it unforgettable</p></div><a href="#reservations" aria-label="Plan a celebration">→</a></div>
+</section>
+<section class="booking" id="reservations"><div class="booking-photo"></div><div class="booking-shade"></div><div class="booking-intro"><p class="eyebrow">RESERVATIONS</p><h2>Book Your<br>Special Evening</h2><p>Tell us a little about your visit, and we’ll take care of the rest.</p><div class="love-note">Good food<br>Better company<br>Great memories <span>♥</span></div></div>
+<form id="reservationForm" class="booking-form"><div class="form-heading">YOUR EVENING, YOUR WAY <span>♡</span></div><div class="fields">
+<label>♙ Full Name<input name="name" required maxlength="100" placeholder="Your name"></label>
+<label>♧ Phone Number<input name="phone" required maxlength="25" placeholder="+91 98765 43210"></label>
+<label>✉ Email Address<input name="email" type="email" maxlength="150" placeholder="you@example.com"></label>
+<label>▣ Date<input name="date" type="date" required></label>
+<label>◷ Time<select name="time" required><option value="">Select time</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option><option>10:00 PM</option></select></label>
+<label>♧ Guests<select name="guests" required><option value="2">2 guests</option><option value="1">1 guest</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option><option value="9+">9+ guests</option></select></label>
+<label class="wide">♧ Special Requests (Optional)<textarea name="notes" rows="2" maxlength="1000" placeholder="Any special occasion, dietary needs or other requests?"></textarea></label>
+</div><button class="button pink submit" type="submit">Submit Reservation <span>→</span></button><p class="status" id="reservationStatus" role="status"></p><small class="disclaimer">Your reservation request is pending until our team confirms availability.</small></form>
+</section>
+<section class="quick-links" id="about"><article><span class="line-icon">♧</span><div><h3>Customer Support</h3><p>Have a question or need assistance?<br>We’re here to help.</p><a class="button outline-light" href="#support">Get Support <span>→</span></a></div></article><article id="reviews"><span class="line-icon">☆</span><div><h3>Guest Reviews</h3><p>Hear what our guests have to say<br>about their Pimlico experience.</p><a class="button outline-light" href="#guestbook">Read Reviews <span>→</span></a></div></article><blockquote>“Pimlico is not just a restaurant,<br>it’s an emotion. The food, ambience<br>and service are absolutely magical!”<small>— A happy guest</small><span class="stars">★★★★★</span></blockquote></section>
+<section class="customer-care" id="support"><div><p class="eyebrow">WE’RE HERE FOR YOU</p><h2>A little note<br>to our team.</h2><p>Questions about a booking, planning a celebration, or simply want to share feedback? Send us a note.</p></div><form id="supportForm" class="support-form"><label>Your name<input name="name" required maxlength="100" placeholder="Your name"></label><label>Email or phone<input name="contact" required maxlength="150" placeholder="How can we reach you?"></label><label>Topic<select name="topic" required><option value="">Choose a topic</option><option>Existing reservation</option><option>Event or celebration</option><option>Menu or dietary question</option><option>Feedback</option><option>Other</option></select></label><label>Message<textarea name="message" required minlength="5" maxlength="2000" rows="3" placeholder="Tell us a little more…"></textarea></label><button class="button pink" type="submit">Send your note →</button><p class="status" id="supportStatus" role="status"></p></form></section>
+<section class="guestbook" id="guestbook"><div><p class="eyebrow">LITTLE LOVE NOTES</p><h2>Leave a little<br><em>love behind.</em></h2><p>Share a few words about your experience at Pimlico.</p><form id="reviewForm" class="review-form"><label>Your name<input name="name" required maxlength="100" placeholder="Name to display"></label><label>Your rating<select name="rating" required><option value="5">★★★★★ — Lovely experience</option><option value="4">★★★★ — Really enjoyed it</option><option value="3">★★★ — Good visit</option><option value="2">★★ — Could be better</option><option value="1">★ — Not for me</option></select></label><label>Your note<textarea name="comment" required minlength="8" maxlength="1500" rows="3" placeholder="What made your visit memorable?"></textarea></label><button class="button dark" type="submit">Share your review →</button><p class="status" id="reviewStatus" role="status"></p></form></div><div class="reviews-list" id="reviewsList"><p>Loading guest reviews…</p></div></section>
+</main>
+<footer><a class="brand" href="#home"><span class="logo-heart">♡</span><span class="brand-name">PIMLICO<small>KOREGAON PARK</small></span></a><p class="footer-address">⌖ Koregaon Park, Pune &nbsp; · &nbsp; ◷ Open Daily | 12:00 PM – 12:00 AM</p><p class="footer-tagline">Good Food ♥ Better Together</p><small>© <span id="year"></span> Pimlico · Website concept</small></footer>
+<script src="/app.js"></script></body></html>

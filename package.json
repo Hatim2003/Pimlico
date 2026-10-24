@@ -1,0 +1,13 @@
+{
+  "name": "pimlico-romantic-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Romantic Pimlico restaurant website concept with reservation, support and review forms",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
