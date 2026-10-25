@@ -1,25 +1,17 @@
-# Pimlico Romantic Website — Preview-Matched Edition
-
-This version uses **local image files cropped directly from the approved preview image**, so the hero, experience cards, and reservation background are included in the ZIP and don't rely on external image URLs. Google Fonts are optional; the design has serif/sans-serif fallbacks.
+# Pimlico romantic restaurant website
 
 ## Run locally
-1. Extract the ZIP.
-2. Open the extracted folder in VS Code.
-3. In the terminal, run:
-   ```bash
-   npm install
-   npm start
-   ```
-4. Open `http://localhost:3000`.
+1. Install Node.js LTS from https://nodejs.org/
+2. Open this folder in VS Code.
+3. In Terminal, run `npm install`
+4. Run `npm start`
+5. Open http://localhost:3000 in your browser.
 
-If PowerShell blocks `npm.ps1`, switch the VS Code terminal profile to **Command Prompt** and run the commands there.
+Keep the terminal running while testing reservations, support messages, and reviews.
+Do not open `public/index.html` directly and do not use GitHub Pages to test the forms: the forms require the Node.js/Express backend.
 
-## Features
-- Responsive romantic burgundy / rose website
-- Local background images in `public/images/`
-- Reservation requests saved to `data/records.json`
-- Customer support messages saved to `data/records.json`
-- Guest reviews saved and displayed from the local JSON file
+## Where records are stored
+The server creates `data/records.json` automatically and stores reservation requests, support messages, and reviews there. Reservation requests remain pending until staff confirms availability.
 
-## Important
-This is a website concept, not an official Pimlico property site. Reservation requests are saved locally but do not send notifications or confirm a table. Before collecting real customer data or publishing, add staff authentication, moderation, privacy notice, spam protection, secure database backups, HTTPS, and actual venue contact details. The included photos are crops from the preview mockup, not full-resolution original restaurant photographs.
+## Deployment note
+A static GitHub repository does not run this backend. For public live forms, deploy the Node.js server to a Node-compatible host and use persistent storage/database for production.

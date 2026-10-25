@@ -25,5 +25,7 @@ const data=read();data.support.push(record);write(data);res.status(201).json({me
 app.post('/api/reviews',(req,res)=>{const b=req.body||{};const rating=Number(b.rating);const record={name:clean(b.name,100),rating,comment:clean(b.comment,1500),createdAt:new Date().toISOString()};
 if(!record.name||!Number.isInteger(rating)||rating<1||rating>5||record.comment.length<8)return res.status(400).json({error:'Please provide your name, a rating, and a review of at least 8 characters.'});
 const data=read();data.reviews.push(record);write(data);res.status(201).json({message:'Thank you for sharing your experience!'})});
+// Unknown API endpoints should return JSON, not the website HTML.
+app.use('/api', (req, res) => res.status(404).json({error: 'API endpoint not found. Make sure the Pimlico Node.js server is running.'}));
 app.get('*',(req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
 app.listen(PORT,()=>console.log(`Pimlico website running at http://localhost:${PORT}`));

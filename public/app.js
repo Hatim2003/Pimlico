@@ -2,10 +2,18 @@ const $=s=>document.querySelector(s);$('#year').textContent=new Date().getFullYe
 const nav=$('#nav'),menu=$('#menu');menu.addEventListener('click',()=>nav.classList.toggle('open'));nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 const dateField=document.querySelector('#reservationForm [name="date"]');const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};dateField.min=today();
 function status(el,text,ok){el.textContent=text;el.style.color=ok?'#b5e0b7':'#f1b7ad'}
-async function post(form,path,el,success){const btn=form.querySelector('button[type=submit]'),old=btn.textContent;btn.disabled=true;btn.textContent='Sending…';status(el,'',true);try{const r=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});const data=await r.json();if(!r.ok)throw Error(data.error||'Please try again.');form.reset();if(path==='reservations')dateField.min=today();status(el,data.message||success,true);return true}catch(e){status(el,e.message||'Could not connect to the server.',false);return false}finally{btn.disabled=false;btn.textContent=old}}
+async function post(form,path,el,success){const btn=form.querySelector('button[type=submit]'),old=btn.textContent;btn.disabled=true;btn.textContent='Sending…';status(el,'',true);try{const r=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});const contentType=r.headers.get('content-type')||'';
+let data;
+if(contentType.includes('application/json')) {
+  data=await r.json();
+} else {
+  const responseText=await r.text();
+  throw Error('The server returned a webpage instead of JSON. Start the Pimlico backend with “npm start” and open http://localhost:3000 (not the HTML file or a GitHub Pages URL).');
+}
+if(!r.ok)throw Error(data.error||'Please try again.');form.reset();if(path==='reservations')dateField.min=today();status(el,data.message||success,true);return true}catch(e){status(el,e.message||'Could not connect to the server.',false);return false}finally{btn.disabled=false;btn.textContent=old}}
 $('#reservationForm').addEventListener('submit',e=>{e.preventDefault();post(e.currentTarget,'reservations',$('#reservationStatus'),'Reservation request received. Our team will contact you to confirm.')});
 $('#supportForm').addEventListener('submit',e=>{e.preventDefault();post(e.currentTarget,'support',$('#supportStatus'),'Thanks! Your message has been sent to the team.')});
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function card(r){let n=Math.max(1,Math.min(5,Number(r.rating)||5));return `<article class="review-card"><div class="review-card-head"><span>${esc(r.name)}</span><span class="stars">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span></div><p>${esc(r.comment)}</p><small>${r.createdAt?new Date(r.createdAt).toLocaleDateString(undefined,{month:'short',year:'numeric'}):''}</small></article>`}
-async function loadReviews(){const el=$('#reviewsList');try{const r=await fetch('/api/reviews');const data=await r.json();el.innerHTML=data.reviews.length?data.reviews.map(card).join(''):'<p>No guest reviews yet. Be the first to leave a little love.</p>'}catch{el.innerHTML='<p>Reviews are temporarily unavailable.</p>'}}
+async function loadReviews(){const el=$('#reviewsList');try{const r=await fetch('/api/reviews');if(!(r.headers.get('content-type')||'').includes('application/json'))throw Error('Backend is not returning JSON');const data=await r.json();el.innerHTML=data.reviews.length?data.reviews.map(card).join(''):'<p>No guest reviews yet. Be the first to leave a little love.</p>'}catch{el.innerHTML='<p>Reviews are temporarily unavailable.</p>'}}
 $('#reviewForm').addEventListener('submit',async e=>{e.preventDefault();if(await post(e.currentTarget,'reviews',$('#reviewStatus'),'Thank you for sharing your experience!'))loadReviews()});loadReviews();
