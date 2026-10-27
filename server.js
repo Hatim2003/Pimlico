@@ -6,6 +6,12 @@ const { Resend } = require('resend');
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
+  
+console.log('Email config present:', {
+  apiKey: Boolean(process.env.RESEND_API_KEY),
+  clientEmail: Boolean(process.env.CLIENT_EMAIL),
+  fromEmail: Boolean(process.env.FROM_EMAIL)
+});
 const app=express();
 const PORT=process.env.PORT||3000;
 const DATA_DIR=path.join(__dirname,'data');
