@@ -94,6 +94,7 @@ Status: ${record.status}`
 res.status(201).json({
   message: 'Reservation request received. Our team will contact you to confirm.'
 });
+});
 app.post('/api/support',(req,res)=>{const b=req.body||{};const record={name:clean(b.name,100),contact:clean(b.contact,150),topic:clean(b.topic,100),message:clean(b.message,2000),createdAt:new Date().toISOString(),status:'new'};
 if(!record.name||!record.contact||!record.topic||record.message.length<5)return res.status(400).json({error:'Please complete all required support fields.'});
 const data=read();
@@ -115,6 +116,7 @@ Status: ${record.status}`
 res.status(201).json({
   message: 'Thanks! Your message has been saved.'
 });
+});
 app.post('/api/reviews',(req,res)=>{const b=req.body||{};const rating=Number(b.rating);const record={name:clean(b.name,100),rating,comment:clean(b.comment,1500),createdAt:new Date().toISOString()};
 if(!record.name||!Number.isInteger(rating)||rating<1||rating>5||record.comment.length<8)return res.status(400).json({error:'Please provide your name, a rating, and a review of at least 8 characters.'});
 const data=read();
@@ -134,7 +136,16 @@ Received: ${record.createdAt}`
 res.status(201).json({
   message: 'Thank you for sharing your experience!'
 });
+});
 // Unknown API endpoints should return JSON, not the website HTML.
-app.use('/api', (req, res) => res.status(404).json({error: 'API endpoint not found. Make sure the Pimlico Node.js server is running.'}));
-app.get('*',(req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
-app.listen(PORT,()=>console.log(`Pimlico website running at http://localhost:${PORT}`));
+app.use('/api', (req, res) => res.status(404).json({
+  error: 'API endpoint not found. Make sure the Pimlico Node.js server is running.'
+}));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`Pimlico website running at http://localhost:${PORT}`);
+});
