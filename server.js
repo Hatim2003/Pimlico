@@ -7,8 +7,34 @@ const DATA_DIR=path.join(__dirname,'data');
 const DATA_FILE=path.join(DATA_DIR,'records.json');
 fs.mkdirSync(DATA_DIR,{recursive:true});
 if(!fs.existsSync(DATA_FILE))fs.writeFileSync(DATA_FILE,JSON.stringify({reservations:[],support:[],reviews:[]},null,2));
-app.use(express.json({limit:'30kb'}));
-app.use(express.static(path.join(__dirname,'public')));
+// Allow the public GitHub Pages website to call this backend.
+const allowedOrigins = new Set([
+  'https://hatim2003.github.io'
+]);
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  }
+
+  // Handle browser CORS preflight requests.
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+app.use(express.json({ limit: '30kb' }));
+app.use(express.static(path.join(__dirname, 'public')));
 function read(){try{return JSON.parse(fs.readFileSync(DATA_FILE,'utf8'))}catch{return {reservations:[],support:[],reviews:[]}}}
 function write(data){fs.writeFileSync(DATA_FILE,JSON.stringify(data,null,2))}
 function clean(v,max=2000){return String(v??'').trim().slice(0,max)}
